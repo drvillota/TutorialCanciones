@@ -1,10 +1,12 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.orm import relationship
+
 from .declarative_base import Base
 
 
 class Cancion(Base):
     __tablename__ = 'cancion'
+
     id = Column(Integer, primary_key=True)
     titulo = Column(String)
     minutos = Column(Integer)
@@ -12,6 +14,12 @@ class Cancion(Base):
     compositor = Column(String)
     albumes = relationship('Album', secondary='link')
     interpretes = relationship('Interprete')
+
+    def __init__(self, titulo, minutos, segundos, compositor):
+        self.titulo = titulo
+        self.minutos = minutos
+        self.segundos = segundos
+        self.compositor = compositor
 
 
 class Link(Base):
