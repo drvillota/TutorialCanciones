@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-    Setup file for tutorial_canciones.
+    Setup file for modelo.
     Use setup.cfg to configure your project.
 
     This file was generated with PyScaffold 3.2.3.

@@ -35,7 +35,7 @@ except ImportError:
     from sphinx import apidoc
 
 output_dir = os.path.join(__location__, "api")
-module_dir = os.path.join(__location__, "../src/tutorial_canciones")
+module_dir = os.path.join(__location__, "../src/modelo")
 try:
     shutil.rmtree(output_dir)
 except FileNotFoundError:
@@ -81,7 +81,7 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'tutorial_canciones'
+project = u'modelo'
 copyright = u'2020, Dayana'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -216,7 +216,7 @@ html_static_path = ['_static']
 # html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'tutorial_canciones-doc'
+htmlhelp_basename = 'modelo-doc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -235,7 +235,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'user_guide.tex', u'tutorial_canciones Documentation',
+  ('index', 'user_guide.tex', u'modelo Documentation',
    u'Dayana', 'manual'),
 ]
 
