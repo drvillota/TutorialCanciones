@@ -1,5 +1,5 @@
 import enum
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, Enum
 from sqlalchemy.orm import relationship
 
 from .declarative_base import Base
@@ -18,7 +18,7 @@ class Album(Base):
     titulo = Column(String)
     ano = Column(Integer)
     descripcion = Column(String)
-    medio = Column(Medio)
+    medio = Column(Enum(Medio))
     canciones = relationship('Cancion', secondary='link')
 
     def __init__(self, titulo, ano, descripcion, medio):
