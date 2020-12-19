@@ -6,3 +6,4 @@ engine = create_engine('sqlite:///aplicacion.sqlite')
 Session = sessionmaker(bind=engine)
 
 Base = declarative_base()
+session = Session()
