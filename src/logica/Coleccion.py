@@ -30,8 +30,10 @@ class Coleccion():
     def buscarCancionesPorInterprete(self):
         pass
 
-    def agregarAlbum(self):
-        pass
+    def agregarAlbum(self, titulo, anio, descripcion, medio):
+        album = Album(titulo= titulo, ano= anio, descripcion= descripcion, medio= medio)
+        session.add(album)
+        session.commit()
 
     def agregarCancion(self):
         pass
@@ -44,15 +46,31 @@ class Coleccion():
         session.delete(album)
         session.commit()
 
-    def eliminarCancion(self, cancion_id):
+    def eliminarCancion(self, cancion_id, album_id):
         cancion = session.query(Cancion).filter(Cancion.id == cancion_id).all()[0]
-        session.delete(cancion)
+        album = session.query(Album).filter(Album.id == album_id).all()[0]
+        if len(cancion.albumes)==1:
+            session.delete(cancion)
+        elif len(cancion.albumes)>1:
+            album.canciones.remove(cancion)
         session.commit()
+
 
     def eliminarInterprete(self):
         pass
 
-    def editarAlbum(self):
+    def editarAlbum(self, album_id, titulo, anio, descripcion, medio):
+        album = session.query(Album).filter(Album.id == album_id).all()[0]
+        if titulo:
+            album.titulo = titulo
+        if anio:
+            album.ano = anio
+        if descripcion:
+            album.descripcion = descripcion
+        if medio:
+            album.medio = medio
+        session.commit()
+
         pass
 
     def editarCancion(self):
