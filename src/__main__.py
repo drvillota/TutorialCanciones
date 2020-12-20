@@ -36,7 +36,7 @@ if __name__ == '__main__':
     coleccion = Coleccion()
     print(coleccion.darCanciones(1))
     print(coleccion.darCanciones(2))
-    print(coleccion.buscarCancionesPorTitulo("Test3"))
+    print(coleccion.buscarCancionesPorTitulo("test3"))
     coleccion.eliminarCancion(1,1)
     print('Albumes con canciones')
     print(coleccion.darCanciones(1))
@@ -49,3 +49,4 @@ if __name__ == '__main__':
     session.close()
     coleccion.agregarAlbum('Título',1994,'New álbum',Medio.CASETE)
     print(coleccion.darAlbumes())
+    print(coleccion.buscarAlbumesPorTitulo('título')[0].id)
