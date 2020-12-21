@@ -24,6 +24,7 @@ class Cancion(Base):
 
 class Link(Base):
     __tablename__ = 'link'
+
     cancion_id = Column(
         Integer,
         ForeignKey('cancion.id'),

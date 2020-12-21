@@ -8,7 +8,7 @@ class Interprete(Base):
 
     id = Column(Integer, primary_key=True)
     nombre = Column(String)
-    cancion_id=Column(Integer, ForeignKey('cancion.id'))
+    cancion = Column(Integer, ForeignKey('cancion.id'))
 
     def __init__(self, nombre):
         self.nombre = nombre
