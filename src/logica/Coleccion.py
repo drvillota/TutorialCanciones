@@ -65,11 +65,14 @@ class Coleccion():
         session.commit()
 
     def eliminarInterprete(self, interprete_id):
-        interprete = session.query(Interprete).filter(Interprete.id == interprete_id).all()[0]
-        if interprete.cancion is None:
-            session.delete(interprete)
-            session.commit()
-            return True
+        interprete = session.query(Interprete).filter(Interprete.id == interprete_id).all()
+        if len(interprete) > 0:
+            if interprete[0].cancion is None:
+                session.delete(interprete[0])
+                session.commit()
+                return True
+            else:
+                return False
         else:
             return False
 
