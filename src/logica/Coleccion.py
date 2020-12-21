@@ -42,7 +42,7 @@ class Coleccion():
 
     def agregarInterprete(self, nombre):
         interprete = session.query(Interprete).filter(Interprete.nombre == nombre).all()
-        if len(interprete) > 0:
+        if len(interprete) == 0:
             nuevoInterprete = Interprete(nombre=nombre)
             session.add(nuevoInterprete)
             session.commit()
@@ -89,8 +89,8 @@ class Coleccion():
         pass
 
     def editarInterprete(self, interprete_id, nombre):
-        busqueda = session.query(Interprete).filter(Interprete.nombre == nombre).all()[0]
-        if busqueda is None:
+        busqueda = session.query(Interprete).filter(Interprete.id != interprete_id, Interprete.nombre == nombre).all()
+        if len(busqueda) == 0:
             interprete = session.query(Interprete).filter(Interprete.id == interprete_id).all()[0]
             interprete.nombre = nombre
             session.commit()
