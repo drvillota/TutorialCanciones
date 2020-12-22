@@ -39,9 +39,13 @@ class Coleccion():
         return resultado
 
     def agregarAlbum(self, titulo, anio, descripcion, medio):
-        album = Album(titulo=titulo, ano=anio, descripcion=descripcion, medio=medio)
-        session.add(album)
-        session.commit()
+        try:
+            album = Album(titulo=titulo, ano=anio, descripcion=descripcion, medio=medio)
+            session.add(album)
+            session.commit()
+            return True
+        except:
+            return False
 
     def agregarCancion(self, titulo, minutos, segundos, compositor, album_id, interpretes_id):
         busqueda = session.query(Cancion).filter(Cancion.titulo == titulo).all()
@@ -70,18 +74,26 @@ class Coleccion():
             return False
 
     def eliminarAlbum(self, album_id):
-        album = session.query(Album).filter(Album.id == album_id).all()[0]
-        session.delete(album)
-        session.commit()
+        try:
+            album = session.query(Album).filter(Album.id == album_id).all()[0]
+            session.delete(album)
+            session.commit()
+            return True
+        except:
+            return False
 
     def eliminarCancion(self, cancion_id, album_id):
-        cancion = session.query(Cancion).filter(Cancion.id == cancion_id).all()[0]
-        album = session.query(Album).filter(Album.id == album_id).all()[0]
-        if len(cancion.albumes) == 1:
-            session.delete(cancion)
-        elif len(cancion.albumes) > 1:
-            album.canciones.remove(cancion)
-        session.commit()
+        try:
+            cancion = session.query(Cancion).filter(Cancion.id == cancion_id).all()[0]
+            album = session.query(Album).filter(Album.id == album_id).all()[0]
+            if len(cancion.albumes) == 1:
+                session.delete(cancion)
+            elif len(cancion.albumes) > 1:
+                album.canciones.remove(cancion)
+            session.commit()
+            return True
+        except:
+            return False
 
     def eliminarInterprete(self, interprete_id):
         interprete = session.query(Interprete).filter(Interprete.id == interprete_id).all()
@@ -96,16 +108,20 @@ class Coleccion():
             return False
 
     def editarAlbum(self, album_id, titulo, anio, descripcion, medio):
-        album = session.query(Album).filter(Album.id == album_id).all()[0]
-        if titulo:
-            album.titulo = titulo
-        if anio:
-            album.ano = anio
-        if descripcion:
-            album.descripcion = descripcion
-        if medio:
-            album.medio = medio
-        session.commit()
+        try:
+            album = session.query(Album).filter(Album.id == album_id).all()[0]
+            if titulo:
+                album.titulo = titulo
+            if anio:
+                album.ano = anio
+            if descripcion:
+                album.descripcion = descripcion
+            if medio:
+                album.medio = medio
+            session.commit()
+            return True
+        except:
+            return False
 
     def editarCancion(self):
         pass
