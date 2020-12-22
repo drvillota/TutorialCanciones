@@ -48,7 +48,8 @@ class Coleccion():
             return False
 
     def agregarCancion(self, titulo, minutos, segundos, compositor, album_id, interpretes_id):
-        busqueda = session.query(Cancion).filter(Cancion.titulo == titulo).all()
+        busqueda = session.query(Cancion).filter(Cancion.albumes.any(Album.id.in_([album_id])),
+                                                 Cancion.titulo == titulo).all()
         if len(busqueda) == 0:
             album = session.query(Album).filter(Album.id == album_id).all()[0]
             interpretesCancion = []
@@ -123,8 +124,23 @@ class Coleccion():
         except:
             return False
 
-    def editarCancion(self):
-        pass
+    def editarCancion(self, cancion_id, titulo, minutos, segundos, compositor, interpretes_id):
+        busqueda = session.query(Cancion).filter(Cancion.id == cancion_id).all()
+        if len(busqueda) != 0:
+            cancion = busqueda[0]
+            cancion.titulo = titulo
+            cancion.minutos = minutos
+            cancion.segundos = segundos
+            cancion.compositor = compositor
+            interpretesCancion = []
+            for item in interpretes_id:
+                interprete = session.query(Interprete).filter(Interprete.id == item).all()[0]
+                interpretesCancion.append(interprete)
+            cancion.interpretes = interpretesCancion
+            session.commit()
+            return True
+        else:
+            return False
 
     def editarInterprete(self, interprete_id, nombre):
         busqueda = session.query(Interprete).filter(Interprete.id != interprete_id, Interprete.nombre == nombre).all()
