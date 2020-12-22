@@ -20,9 +20,3 @@ class Album(Base):
     descripcion = Column(String)
     medio = Column(Enum(Medio))
     canciones = relationship('Cancion', secondary='link')
-
-    def __init__(self, titulo, ano, descripcion, medio):
-        self.titulo = titulo
-        self.ano = ano
-        self.descripcion = descripcion
-        self.medio = medio

@@ -15,12 +15,6 @@ class Cancion(Base):
     albumes = relationship('Album', secondary='link')
     interpretes = relationship('Interprete')
 
-    def __init__(self, titulo, minutos, segundos, compositor):
-        self.titulo = titulo
-        self.minutos = minutos
-        self.segundos = segundos
-        self.compositor = compositor
-
 
 class Link(Base):
     __tablename__ = 'link'

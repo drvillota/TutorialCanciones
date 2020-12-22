@@ -29,16 +29,35 @@ class Coleccion():
         canciones = session.query(Cancion).filter(Cancion.titulo.ilike(cancion_titulo)).all()
         return canciones
 
-    def buscarCancionesPorInterprete(self):
-        pass
+    def buscarCancionesPorInterprete(self, nombre):
+        resultado = []
+        canciones = session.query(Cancion).all()
+        for cancion in canciones:
+            for interprete in cancion.interpretes:
+                if interprete.nombre == nombre:
+                    resultado.append(cancion)
+        return resultado
 
     def agregarAlbum(self, titulo, anio, descripcion, medio):
         album = Album(titulo=titulo, ano=anio, descripcion=descripcion, medio=medio)
         session.add(album)
         session.commit()
 
-    def agregarCancion(self):
-        pass
+    def agregarCancion(self, titulo, minutos, segundos, compositor, album_id, interpretes_id):
+        busqueda = session.query(Cancion).filter(Cancion.titulo == titulo).all()
+        if len(busqueda) == 0:
+            album = session.query(Album).filter(Album.id == album_id).all()[0]
+            interpretesCancion = []
+            for item in interpretes_id:
+                interprete = session.query(Interprete).filter(Interprete.id == item).all()[0]
+                interpretesCancion.append(interprete)
+            nuevaCancion = Cancion(titulo=titulo, minutos=minutos, segundos=segundos, compositor=compositor,
+                                   albumes=[album], interpretes=interpretesCancion)
+            session.add(nuevaCancion)
+            session.commit()
+            return True
+        else:
+            return False
 
     def agregarInterprete(self, nombre):
         interprete = session.query(Interprete).filter(Interprete.nombre == nombre).all()
