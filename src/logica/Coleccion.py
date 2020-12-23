@@ -119,7 +119,7 @@ class Coleccion():
         except:
             return False
 
-    def editarCancion(self, cancion_id, titulo, minutos, segundos, compositor,album_id, interpretes_id):
+    def editarCancion(self, cancion_id, titulo, minutos, segundos, compositor, album_id, interpretes_id):
         busqueda = session.query(Cancion).filter(Cancion.albumes.any(Album.id.in_([album_id])),
                                                  Cancion.titulo == titulo, Cancion.id != cancion_id).all()
         if len(busqueda) == 0:
