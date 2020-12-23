@@ -30,13 +30,8 @@ class Coleccion():
         return canciones
 
     def buscarCancionesPorInterprete(self, nombre):
-        resultado = []
-        canciones = session.query(Cancion).all()
-        for cancion in canciones:
-            for interprete in cancion.interpretes:
-                if interprete.nombre == nombre:
-                    resultado.append(cancion)
-        return resultado
+        canciones = session.query(Cancion).filter(Cancion.interpretes.any(Interprete.nombre.ilike(nombre))).all()
+        return canciones
 
     def agregarAlbum(self, titulo, anio, descripcion, medio):
         try:
