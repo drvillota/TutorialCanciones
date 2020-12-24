@@ -1,7 +1,7 @@
-from src.modelo.album import Album
-from src.modelo.cancion import Cancion
-from src.modelo.declarative_base import session, engine, Base
-from src.modelo.interprete import Interprete
+from modelo.album import Album
+from modelo.cancion import Cancion
+from modelo.declarative_base import session, engine, Base
+from modelo.interprete import Interprete
 
 
 class Coleccion():
@@ -13,8 +13,12 @@ class Coleccion():
         albumes = session.query(Album).all()
         return albumes
 
-    def darCanciones(self, album_id):
+    def darCancionesDeAlbum(self, album_id):
         canciones = session.query(Cancion).filter(Cancion.albumes.any(Album.id.in_([album_id]))).all()
+        return canciones
+
+    def darCanciones(self):
+        canciones = session.query(Cancion).all()
         return canciones
 
     def darInterpretes(self):
